@@ -22,8 +22,9 @@ gameExit = False # game has not been triggered to exit
 
 # start_screen() # show intro/start screen
 
-player_x = 300 # player x position
-PLAYER_Y = 300 # player y position, constant, does not change
+playerSize = 50 # current player size (square)
+player_x = (WIDTH/2)-(playerSize/2) # player x position
+PLAYER_Y = 500 # player y position, constant, does not change
 PLAYER_POTENTIAL_VELOCITY = 10 # potential player speed
 playerVelocity = 0 # current player speed
 
@@ -37,13 +38,20 @@ while not gameExit: # game has not been triggered to exit
 			elif event.key == pygame.K_RIGHT:
 				playerVelocity = PLAYER_POTENTIAL_VELOCITY
 		if event.type == pygame.KEYUP:
-			if (event.key == pygame.K_LEFT) or (event.key == pygame.K_RIGHT): # player stops moving if key is let go
+			if (event.key == pygame.K_LEFT) or (event.key == pygame.K_RIGHT): # player stops moving if movement key is let go
 				playerVelocity = 0
+
+	if (player_x < 0) or ((player_x == PLAYER_POTENTIAL_VELOCITY) and (playerVelocity < 0)) or ((player_x == 0) and (playerVelocity < 0)): # define player boundaries, if player passes or tries to pass boundaries, set position to right in front of boundary and set velocity to 0
+		player_x = 0
+		playerVelocity = 0
+	elif (player_x > WIDTH-playerSize) or ((player_x == WIDTH-PLAYER_POTENTIAL_VELOCITY-playerSize) and (playerVelocity > 0)) or ((player_x == WIDTH-playerSize) and (playerVelocity > 0)):
+		player_x = WIDTH-playerSize
+		playerVelocity = 0
 
 	player_x += playerVelocity # move player left or right
 
 	gameDisplay.fill(WHITE) # background will be white
-	pygame.draw.rect(gameDisplay,BLACK,[player_x,PLAYER_Y,10,10]) # draw black rectangle at (400,300) (from top-left) with size (10,100) on top of background
+	pygame.draw.rect(gameDisplay,BLACK,[player_x,PLAYER_Y,playerSize,playerSize]) # draw black rectangle at (player_x,player_y) (from top-left) with size (playerSize,playerSize) (also from top-left) on top of background
 
 	pygame.display.update() # draw to window
 

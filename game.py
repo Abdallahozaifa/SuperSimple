@@ -20,6 +20,8 @@ pygame.display.set_caption(TITLE) # window title
 
 gameExit = False # game has not been triggered to exit
 
+start_screen() # show intro/start screen
+
 player_x = 300 # player x position
 PLAYER_Y = 300 # player y position, constant, does not change
 PLAYER_POTENTIAL_VELOCITY = 10 # potential player speed

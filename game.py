@@ -5,7 +5,7 @@ TITLE="SuperSimple"
 WIDTH=1366 # window width
 HEIGHT=768 # window height
 
-FPS=30 # frames per second
+FPS=60 # frames per second
 
 WHITE = (255,255,255) # variable for color white
 BLACK = (0,0,0) # variable for color black
@@ -20,7 +20,7 @@ pygame.display.set_caption(TITLE) # window title
 
 gameExit = False # game has not been triggered to exit
 
-start_screen() # show intro/start screen
+# start_screen() # show intro/start screen
 
 player_x = 300 # player x position
 PLAYER_Y = 300 # player y position, constant, does not change

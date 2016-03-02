@@ -37,7 +37,7 @@ while not gameExit: # game has not been triggered to exit
 			if event.key == pygame.K_RIGHT:
 				playerVelocity = PLAYER_POTENTIAL_VELOCITY
 		if event.type == pygame.KEYUP:
-			if (event.key == pygame.K_LEFT) or (event.key == pygame.K_RIGHT):
+			if (event.key == pygame.K_LEFT) or (event.key == pygame.K_RIGHT): # player stops moving if key is let go
 				playerVelocity = 0
 
 	player_x += playerVelocity # move player left or right

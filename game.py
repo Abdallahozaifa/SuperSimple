@@ -5,9 +5,13 @@ TITLE="SuperSimple"
 WIDTH=1366 # window width
 HEIGHT=768 # window height
 
+FPS=30 # frames per second
+
 WHITE = (255,255,255) # variable for color white
 BLACK = (0,0,0) # variable for color black
 RED = (255,0,0) # variable for color red
+
+clock = pygame.time.Clock() # pygame clock object for frames per second
 
 pygame.init() # initialize pygame
 
@@ -37,6 +41,8 @@ while not gameExit: # game has not been triggered to exit
 	pygame.draw.rect(gameDisplay,BLACK,[player_x,PLAYER_Y,10,10]) # draw black rectangle at (400,300) (from top-left) with size (10,100) on top of background
 
 	pygame.display.update() # draw to window
+
+	clock.tick(FPS) # set framerate to 30 frames per second
 
 pygame.quit() # quit pygame
 quit() # quit python

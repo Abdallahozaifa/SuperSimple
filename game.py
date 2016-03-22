@@ -150,7 +150,7 @@ while not gameExit:
 	for enemy in enemies: # update existing enemies
 		if scaling:
 			enemy.setSize(enemy.size / 2)
-			enemy.velocity *= 2 # change existing enemies velocity
+			enemy.velocity *= 1.1 # change existing enemies velocity
 
 		enemyDead = False
 

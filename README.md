@@ -20,3 +20,4 @@ Viewport gets larger as you get larger
 ? Press a button to fire 10% your block up -- you get 10% smaller
 
 git config --global user.name "username"
+git config user.name

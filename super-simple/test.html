@@ -1,0 +1,38 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Super Simple</title>
+    <meta name="description" content="Game">
+
+    <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <canvas id="demoCanvas" width="1000px" height="1000px"></canvas>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+    <script src="https://code.createjs.com/tweenjs-0.6.2.min.js"></script>
+    <script>
+    
+        function init() {
+            var stage = new createjs.Stage("demoCanvas");
+            //Create a Shape DisplayObject.
+            var player = new createjs.Shape();
+            player.graphics.beginFill("#ff0000").drawRect(0, 0, 100, 100);
+            stage.addChild(player);
+            player.x = 0;
+            stage.update();
+        }
+
+        init();
+    </script>
+</body>
+
+</html>

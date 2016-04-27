@@ -18,3 +18,7 @@ Falling blocks get larger as you get larger
 Viewport gets larger as you get larger
 
 ? Press a button to fire 10% your block up -- you get 10% smaller
+
+To Add a user to the local list
+git config --global user.name "name" --add
+git config --global user.email "email" --add

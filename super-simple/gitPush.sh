@@ -4,9 +4,6 @@ userEmail=$(git config user.email 2>&1)
 
 if [ "$userName" == "$1" ] 
 then
-    git add --all 
-    git commit -m $3
-    git push origin master
     echo "Equal"
 else 
     git config --global user.name $1 --add
@@ -15,3 +12,6 @@ else
     git config user.email $2 --add
     echo "Not Equal"
 fi
+
+# Steps on How to Push
+#./gitPush.sh abdallahozaifa abdallahozaifa19527@gmail.com 

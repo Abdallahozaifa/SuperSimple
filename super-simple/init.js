@@ -1,4 +1,4 @@
-/* global superSimple, tutorial, After */
+/* global superSimple, tutorial, After, player, Level */
 
 //////////////////////////////
 // INITIALIZE THE GAME
@@ -18,14 +18,23 @@ function init() {
             .after(1, function() {
                 superSimple.controller.spawnPlayer();
             })
-            .after(0.5, function() {
-                var firstLevel = new Level("1", 30, 0.5, 1, 1, 5, 15, player.size, 1);
+            .after(2, function() {
+                var firstLevel = new Level("1", 30, 0.9, 0.1, 1, 7, 15, player.size, 1);
 
                 firstLevel.onEnd = function() {
-                    console.log("Level over!");
+                    superSimple.controller.showMessage("LEVEL 1 COMPLETED!!", 60, 2);
                 };
 
                 firstLevel.start();
+            })
+            .after(42, function() {
+                var secondLevel = new Level("2", 30, 0.5, 0.1, 4, 7, 15, player.size, 0.5);
+
+                secondLevel.onEnd = function() {
+                    superSimple.controller.showMessage("LEVEL 2 COMPLETED!!", 60, 2);
+                };
+
+                secondLevel.start();
             });
     };
 };

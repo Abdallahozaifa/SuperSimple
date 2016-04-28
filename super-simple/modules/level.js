@@ -40,10 +40,10 @@ var Level = function(id, duration, sizeLowerBound,
         var size = player.size;
         var velocity = (velocityUpperBound - velocityLowerBound) * Math.random() + velocityLowerBound;
         if (Math.random() > 0.5) {
-            size += player.size * sizeLowerBound * Math.random();
+            size += player.size * sizeUpperBound * Math.random();
         }
         else {
-            size -= player.size * sizeUpperBound * Math.random();
+            size -= player.size * sizeLowerBound * Math.random();
         }
         var position = (superSimple.width - size) * Math.random();
         enemyController.addEnemy("#CC6699", size, velocity, position);

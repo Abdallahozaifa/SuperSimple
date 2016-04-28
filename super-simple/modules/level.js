@@ -11,6 +11,7 @@ var Level = function(id, duration, sizeLowerBound,
     var pub = {};
     var priv = {};
 
+    // some properties
     priv.id = id;
     priv.LEVEL_OVER = false;
 

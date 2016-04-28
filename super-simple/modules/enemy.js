@@ -15,6 +15,8 @@ var Enemy = function(color, size, velocity, x) {
     this.easel = null;
     // If it's been disposed
     this.disposed = false;
+    // all the different enemy colors 
+    this.colors = ["blue", "green", "red", "yellow", "purple", "orange"], 
     // Initialize
     this.init();
 };

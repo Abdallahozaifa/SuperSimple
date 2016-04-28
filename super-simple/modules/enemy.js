@@ -16,9 +16,9 @@ var Enemy = function(color, size, velocity, x) {
     // If it's been disposed
     this.disposed = false;
     // all the different enemy colors for the different enemies
-    this.colors = ["blue", "green", "red", "yellow", "purple", "orange"], 
-    // Initialize
-    this.init();
+    this.colors = ["blue", "green", "red", "yellow", "purple", "orange"],
+        // Initialize
+        this.init();
 };
 
 // Prototype
@@ -34,11 +34,16 @@ var EnemyProto = {
         // Start moving downwards
         this.slide(0, this.velocity);
     },
+    randomColor: function() {
+        var color =  this.colors[Math.floor(Math.random() * 6)];
+        console.log(color);
+        return color;
+    },
     cache: function() {
         // Create it
         this.rect = new createjs.Rectangle(0, 0, this.size, this.size);
         this.easel = new createjs.Shape();
-        this.easel.graphics.beginFill(this.color).drawRect(0, 0, this.size, this.size);
+        this.easel.graphics.beginFill(this.randomColor()).drawRect(0, 0, this.size, this.size);
     },
     getSize: function() {
         return this.size;
@@ -106,7 +111,7 @@ var EnemyProto = {
         this._printDebug();
         this._checkOutOfBounds();
     },
-    _checkOutOfBounds: function () {
+    _checkOutOfBounds: function() {
         if (this.easel.y > 100 + superSimple.height) {
             this.dispose();
         }

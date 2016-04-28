@@ -19,6 +19,7 @@ superSimple.controller = {
     },
     // spawns the player
     spawnPlayer: function() {
+        player.size = 100; // default
         player.init(10, "#006699", superSimple.width / 2);
         this._GAME_OVER = false;
     },

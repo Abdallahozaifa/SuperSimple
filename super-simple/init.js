@@ -19,19 +19,19 @@ function init() {
                 superSimple.controller.spawnPlayer();
             })
             .after(2, function() {
-                var firstLevel = new Level("1", 30, 0.9, 0.1, 1, 7, 15, player.size, 1);
+                var firstLevel = new Level("1", 30, 0.9, -0.9, 1, 7, 15, player.size, 1);
 
                 firstLevel.onEnd = function() {
-                    superSimple.controller.showMessage("LEVEL 1 COMPLETED!!", 60, 2);
+                    superSimple.controller.showMessage("LEVEL 1 COMPLETED", 40, 2);
                 };
 
                 firstLevel.start();
             })
             .after(42, function() {
-                var secondLevel = new Level("2", 30, 0.5, 0.1, 4, 7, 15, player.size, 0.5);
+                var secondLevel = new Level("2", 30, 0.9, -0.9, 4, 7, 15, player.size, 0.5);
 
                 secondLevel.onEnd = function() {
-                    superSimple.controller.showMessage("LEVEL 2 COMPLETED!!", 60, 2);
+                    superSimple.controller.showMessage("LEVEL 2 COMPLETED", 40, 2);
                 };
 
                 secondLevel.start();

@@ -4,8 +4,6 @@
 // PLAYER CLASS 
 ////////////////////////
 
-var START_SIZE = 100;
-
 var player = {
     // Slider
     _sliderOn: false,
@@ -16,7 +14,9 @@ var player = {
     // constants
     VELOCITY: 15,
     // variables
-    size: START_SIZE,
+    size: 100,
+    // default size
+    DEFAULT_SIZE: 100,
     // Player color
     color: "#990000",
     /* Constructor for the player class */

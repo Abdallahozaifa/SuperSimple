@@ -7,7 +7,7 @@
  */
 var Level = function(id, duration, sizeLowerBound,
     sizeUpperBound, velocityLowerBound,
-    velocityUpperBound, playerVelocity, enemyInterval, onEnd) {
+    velocityUpperBound, playerVelocity, playerSize, enemyInterval, onEnd) {
     var pub = {};
     var priv = {};
 
@@ -21,33 +21,33 @@ var Level = function(id, duration, sizeLowerBound,
     // Sets player properties based on level
     priv.updatePlayer = function() {
         player.VELOCITY = playerVelocity;
+        player.setSize(playerSize);
     };
 
     // Continously spawns enemies until level duration is over
     priv.startEnemySpawning = function() {
-        var spawnInterv;
-        if (!priv.LEVEL_OVER) {
-            spawnInterv = setInterval(function() {
-                priv.spawnEnemy();
-            }, enemyInterval);
-        } {
-            clearInterval(spawnInterv);
-        }
+        var spawnInterv = setInterval(function() {
+            console.log("Spawn enemy");
+            priv.spawnEnemy();
+            if (priv.LEVEL_OVER || superSimple.controller._GAME_OVER) {
+                clearInterval(spawnInterv);
+            }
+        }, enemyInterval * 1000);
     };
 
     // Spawns single enemy
     priv.spawnEnemy = function() {
         var size = player.size;
+        var velocity = (velocityUpperBound - velocityLowerBound) * Math.random() + velocityLowerBound;
         if (Math.random() > 0.5) {
             size += player.size * sizeLowerBound * Math.random();
         }
         else {
             size -= player.size * sizeUpperBound * Math.random();
         }
-        var velocity = 3 * Math.random() + 1;
         var position = (superSimple.width - size) * Math.random();
         enemyController.addEnemy("#CC6699", size, velocity, position);
-    }
+    };
 
     // Starts the level
     pub.start = function() {
@@ -63,7 +63,9 @@ var Level = function(id, duration, sizeLowerBound,
                 priv.LEVEL_OVER = true;
             })
             .after(5, function() {
-                pub.onEnd();
+                if (!superSimple.controller._GAME_OVER) {
+                    pub.onEnd();
+                }
             });
     };
 

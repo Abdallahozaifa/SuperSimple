@@ -19,20 +19,13 @@ function init() {
                 superSimple.controller.spawnPlayer();
             })
             .after(0.5, function() {
-                superSimple.controller.spawnEnemy();
-                superSimple.controller.spawnEnemy();
-            })
-            .after(0.5, function() {
-                superSimple.controller.spawnEnemy();
-                superSimple.controller.spawnEnemy();
-            })
-            .after(0.5, function() {
-                superSimple.controller.spawnEnemy();
-                superSimple.controller.spawnEnemy();
-            })
-            .after(0.5, function() {
-                superSimple.controller.spawnEnemy();
-                superSimple.controller.spawnEnemy();
+                var firstLevel = new Level("1", 30, 0.5, 1, 1, 5, 15, player.size, 1);
+
+                firstLevel.onEnd = function() {
+                    console.log("Level over!");
+                };
+
+                firstLevel.start();
             });
     };
 };

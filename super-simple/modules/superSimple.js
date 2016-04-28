@@ -6,7 +6,7 @@
 
 var superSimple = {
     // If debugging
-    DEBUG_MODE: true,
+    DEBUG_MODE: false,
     // Holds game stage from EaselJS
     stage: null,
     // Width of game screen

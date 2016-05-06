@@ -13,5 +13,7 @@ else
     echo "Not Equal"
 fi
 
+
+
 # Steps on How to Push
 #./gitPush.sh abdallahozaifa abdallahozaifa19527@gmail.com 

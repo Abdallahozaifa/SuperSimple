@@ -1,4 +1,4 @@
-/* global superSimple, createjs, player, enemyController, After, init */
+/* global superSimple, createjs, player, enemyController, After, init, pointSystem, logo */
 
 ////////////////////////////
 // GAME CONTROLLER CLASS
@@ -20,7 +20,7 @@ superSimple.controller = {
     // spawns the player
     spawnPlayer: function() {
         player.size = 100; // default
-        player.init(10, "#006699", superSimple.width / 2);
+        player.init(15, "#006699", superSimple.width / 2);
         this._GAME_OVER = false;
     },
     // spawn enemy
@@ -37,35 +37,39 @@ superSimple.controller = {
         enemyController.addEnemy("#CC6699", size, velocity, position);
     },
     // Restart game
-    restart: function () {
-        init();
+    restart: function() {
+        // init();
+        window.location.reload();
     },
     gameOver: function() {
         if (!this._GAME_OVER) {
-            this._GAME_OVER =  true;
+            superSimple.setBgColor("#8A0707");
+            this._GAME_OVER = true;
             var a = new After();
             var _this = this;
             a.after(0, function() {
-                _this.showMessage("GAME OVER", 75, 6);
-            })
-            .after(6, function() {
-                _this.showMessage("Reloading in 3", 40, 1);
-            })
-            .after(1, function() {
-                _this.showMessage("Reloading in 2", 40, 1);
-            })
-            .after(1, function() {
-                _this.showMessage("Reloading in 1", 40, 1);
-            })
-            .after(1, function() {
-                _this.showMessage("Reloading.....", 40, 1);
-                _this.restart();
-            })
+                    _this.showMessage("GAME OVER", 75, 6);
+                })
+                .after(6, function() {
+                    _this.showMessage("Reloading in 3", 40, 1);
+                })
+                .after(1, function() {
+                    _this.showMessage("Reloading in 2", 40, 1);
+                })
+                .after(1, function() {
+                    _this.showMessage("Reloading in 1", 40, 1);
+                })
+                .after(1, function() {
+                    _this.showMessage("Reloading.....", 40, 1);
+                    _this.restart();
+                });
         }
     },
     // Runs on every game tick
     tick: function() {
         enemyController.tick(); // enemies are broken
         player.tick();
+        superSimple.camera.tick();
+        pointSystem.tick();
     }
 };

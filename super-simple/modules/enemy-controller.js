@@ -16,15 +16,14 @@ var enemyController = {
             enemy.tick();
         });
     },
-    addEnemy: function(color, size, velocity, x) {
+    addEnemy: function(type, size, velocity, x) {
         if (this._allEnemies.length < this.MAX_ENEMIES) {
-            this._allEnemies.push(new Enemy(color, size, velocity, x));
+            this._allEnemies.push(new Enemy(type, size, velocity, x));
         }
     },
     removeEnemy: function(enemy) {
         var indx = this._allEnemies.indexOf(enemy);
         if (indx !== null) {
-            console.log("REMOVED");
             this._allEnemies.splice( indx , 1 )
         }
     }

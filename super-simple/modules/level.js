@@ -1,4 +1,4 @@
-/* global $, After, superSimple, player, enemyController */
+/* global $, After, superSimple, player, enemyController, Enemy, pointSystem */
 
 /**
  * Level class
@@ -10,6 +10,8 @@ var Level = function(id, duration, sizeLowerBound,
     velocityUpperBound, playerVelocity, playerSize, enemyInterval, onEnd) {
     var pub = {};
     var priv = {};
+    
+    pointSystem.setStartPoint(playerSize);
 
     // some properties
     priv.id = id;
@@ -27,7 +29,6 @@ var Level = function(id, duration, sizeLowerBound,
     // Continously spawns enemies until level duration is over
     priv.startEnemySpawning = function() {
         var spawnInterv = setInterval(function() {
-            console.log("Spawn enemy");
             priv.spawnEnemy();
             if (priv.LEVEL_OVER || superSimple.controller._GAME_OVER) {
                 clearInterval(spawnInterv);
@@ -37,16 +38,17 @@ var Level = function(id, duration, sizeLowerBound,
 
     // Spawns single enemy
     priv.spawnEnemy = function() {
-        var size = player.size;
+        var adjPlayerSize = superSimple.camera.getAdjustedSize(player.size);
+        var size = adjPlayerSize;
         var velocity = (velocityUpperBound - velocityLowerBound) * Math.random() + velocityLowerBound;
         if (Math.random() > 0.5) {
-            size += player.size * sizeUpperBound * Math.random();
+            size += adjPlayerSize * sizeUpperBound * Math.random();
         }
         else {
-            size -= player.size * sizeLowerBound * Math.random();
+            size -= adjPlayerSize * sizeLowerBound * Math.random();
         }
         var position = (superSimple.width - size) * Math.random();
-        enemyController.addEnemy("#CC6699", size, velocity, position);
+        enemyController.addEnemy(Enemy.getRandomType(), size, velocity, position);
     };
 
     // Starts the level
@@ -59,11 +61,12 @@ var Level = function(id, duration, sizeLowerBound,
                 priv.updatePlayer();
                 priv.startEnemySpawning();
             })
-            .after(duration, function() {
+            .after(duration - 10, function() {
                 priv.LEVEL_OVER = true;
             })
             .after(5, function() {
                 if (!superSimple.controller._GAME_OVER) {
+                    superSimple.controller.showMessage("Level " + priv.id + " complete", 40, 2);
                     pub.onEnd();
                 }
             });

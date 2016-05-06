@@ -5,8 +5,9 @@
 ////////////////////////
 
 // Constructor
-var Enemy = function(color, size, velocity, x) {
-    this.color = color;
+var Enemy = function(type, size, velocity, x) {
+    this.type = type;
+    this.color = type.color;
     this.size = size;
     this.velocity = velocity;
     this.x = x;
@@ -15,10 +16,45 @@ var Enemy = function(color, size, velocity, x) {
     this.easel = null;
     // If it's been disposed
     this.disposed = false;
-    // all the different enemy colors for the different enemies
-    this.colors = ["blue", "green", "red", "yellow", "purple", "orange"],
-        // Initialize
-        this.init();
+    // all the different enemy standardColor for the different enemies
+    this.standardColor = "#339933";
+    this.powerUpColors = ["#e60000", "#0033cc"];
+    // Initialize
+    this.init();
+};
+
+Enemy.getRandomType = function() {
+    // Standard
+    var standard = {
+        id: 0,
+        type: "standard",
+        color: "#CC6699"
+    };
+    // Special
+    var enemyTypes = [{
+        id: 1,
+        type: "speed",
+        color: "#e60000" // red
+    }, {
+        id: 2,
+        type: "invincible",
+        color: "#0033cc" // blue
+    }, {
+        id: 3,
+        type: "double",
+        color: "#cc0099" // purple
+    }];
+
+    // 70% of the time it will be standard
+    if (Math.random() > 0.1) {
+        // return standard
+        return standard;
+    }
+    else {
+        // return random special
+        var randNum = Math.floor(Math.random() * enemyTypes.length);
+        return enemyTypes[randNum];
+    }
 };
 
 // Prototype
@@ -34,16 +70,11 @@ var EnemyProto = {
         // Start moving downwards
         this.slide(0, this.velocity);
     },
-    randomColor: function() {
-        var color =  this.colors[Math.floor(Math.random() * 6)];
-        console.log(color);
-        return color;
-    },
     cache: function() {
         // Create it
         this.rect = new createjs.Rectangle(0, 0, this.size, this.size);
         this.easel = new createjs.Shape();
-        this.easel.graphics.beginFill(this.randomColor()).drawRect(0, 0, this.size, this.size);
+        this.easel.graphics.beginFill(this.color).drawRect(0, 0, this.size, this.size);
     },
     getSize: function() {
         return this.size;
@@ -91,14 +122,16 @@ var EnemyProto = {
         // Correct Rect values
         this.correctRect();
         player.correctRect();
+        var EcontainsP = this.rect.contains(player.easel.x, player.easel.y, player.size, player.size);
+        var PcontainsE = player.rect.contains(this.easel.x, this.easel.y, this.size, this.size);
         /* enemy contains player */
-        if (this.rect.contains(player.easel.x, player.easel.y, player.size, player.size)) {
+        if (EcontainsP && !player.isInvincible()) {
             superSimple.controller.gameOver();
             snap.dead(player.easel.x, player.easel.y, player.size);
             return;
         }
         /* player contains enemy */
-        else if (player.rect.contains(this.easel.x, this.easel.y, this.size, this.size)) {
+        else if (PcontainsE) {
             player.eat(this);
             this.dispose();
             snap.ate(this.easel.x, this.easel.y, this.size);

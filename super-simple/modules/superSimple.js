@@ -19,6 +19,7 @@ var superSimple = {
     player: null,
     // Background color
     bgColor: "#CCCCCC",
+    _bg: null,
     // Resize canvas
     adjust: function() {
         document.getElementById("gameCanvas").width = this.width;
@@ -43,6 +44,10 @@ var superSimple = {
         var bg = new createjs.Shape();
         bg.graphics.beginFill(this.bgColor).drawRect(0, 0, this.width, this.height);
         this.stage.addChild(bg);
+        this._bg = bg;
+    },
+    setBgColor: function(color) {
+        this._bg.graphics.beginFill(color).drawRect(0, 0, this.width, this.height)
     }
 };
 
